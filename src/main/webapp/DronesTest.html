@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        input{
+            width: 400px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+无人机id：<input type="text" id="plane" placeholder="id只能是数字加英文字母，不然会出故障"/><br/><br/>
+X移动量：<input type="text" id="X" placeholder="只能是整数，否则判断为故障"/><br/><br/>
+Y移动量：<input type="text" id="Y" placeholder="只能是整数，否则判断为故障"/><br/><br/>
+Z移动量：<input type="text" id="Z" placeholder="只能是整数，否则判断为故障"/><br/><br/>
+<button id="tiJiao">提交</button>
+</body>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script>
+    $(function () {
+        $("#tiJiao").click(function () {
+            $.ajax({
+                url: "/yiDong",   // 请求路径
+                type: "POST",            // 请求的方式，不区分大小写
+                cache: false,            // 关闭缓存，目的是为了避免部分浏览器缓存加载出错(IE)
+                datatype: "json",        // 返回类型，text文本、html页面、json数据
+                // contentType: "application/json; charset=utf-8",
+                data: {
+                    "plane": $("#plane").val(),
+                    "X": $("#X").val(),
+                    "Y": $("#Y").val(),
+                    "Z": $("#Z").val()
+                },
+                success: function (response) {
+                    alert(response.msg)
+                },
+                error: function (response) {
+                    alert("出错" + response);
+                }
+            });
+        });
+    });
+
+</script>
+</html>

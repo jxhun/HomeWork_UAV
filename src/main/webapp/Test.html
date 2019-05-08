@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        input{
+            width: 400px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+<form action="/executeImport" method="post" enctype="multipart/form-data">
+    <input type="file" name="articleFile" class="required" id="articleFile"><br>
+    <br><br>
+</form>
+请输入消息序号：<input type="text" id="xuHao"/>
+<button id="chaXun">查询</button>
+</body>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script>
+    $("#chaXun").click(function () {
+        var formData = new FormData();
+        formData.append("articleFile", $("#articleFile")[0].files[0]);
+        formData.append("xuHao", $("#xuHao").val());
+        $.ajax({
+            url: '/executeImport',
+            type: 'post',
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function (response) {
+                alert(response.msg)
+            },
+            error: function (response) {
+                alert("出错" + response);
+            }
+        });
+    });
+
+
+    // $("#chaXun").click(function () {
+    //     $.ajax({
+    //         url: "/yiDong",   // 请求路径
+    //         type: "POST",            // 请求的方式，不区分大小写
+    //         cache: false,            // 关闭缓存，目的是为了避免部分浏览器缓存加载出错(IE)
+    //         datatype: "json",        // 返回类型，text文本、html页面、json数据
+    //         // contentType: "application/json; charset=utf-8",
+    //         data: {
+    //             "plane": $("#plane").val(),
+    //             "X": $("#X").val(),
+    //             "Y": $("#Y").val(),
+    //             "Z": $("#Z").val()
+    //         },
+    //         success: function (response) {
+    //             alert("成功")
+    //         },
+    //         error: function (response) {
+    //             alert("出错" + response);
+    //         }
+    //     });
+    // });
+
+</script>
+</html>
